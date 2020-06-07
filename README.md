@@ -12,7 +12,9 @@ In the seach form, 2nd form, look for the product id that best matches your sear
 
 enter `Meat` in the search form for example will result in:
 >30	Three Cheese Ziti, Marinara with Meatballs
+
 >36	Traditional Lasagna with Meat Sauce Savory Italian Recipes
+
 >49	Vegetarian Grain Meat Sausages Italian - 4 CT
 
 In the first form, item desired, enter the product id and you will be redirect to search.
