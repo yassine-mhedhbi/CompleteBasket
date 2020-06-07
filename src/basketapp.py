@@ -14,7 +14,6 @@ mapping = pd.read_csv('src/data/products.csv')\
             .set_index('product_id')[['product_name']]
 
 
-
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
@@ -32,10 +31,6 @@ def index():
         
     return render_template('index.html', form=form,
                             search=searchForm, collections=collections)
-
-
-
-
 
 @app.route('/items/<int:item>')
 def items(item):

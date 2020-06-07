@@ -3,15 +3,16 @@ from wtforms import StringField, SubmitField, BooleanField, IntegerField
 from wtforms.validators import Required
 import pandas as pd
 
-
 class Requerstform(Form):
     
     product1 = IntegerField('item desired? ', validators=[Required()])
     submit1 = SubmitField('submit')
     
+    
 class SearchForm(Form):
     product2 = StringField('products matching this:', validators=[Required()])
     submit2 = SubmitField('search')
+
 
 def get_product(df, pid):
     return df.loc[pid].product_name
