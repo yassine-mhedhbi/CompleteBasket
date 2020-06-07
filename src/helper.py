@@ -26,7 +26,6 @@ def get_all_cocart(sp_mat, pid, top=10):
     # We are doing this because we have triangular matrix
     return pd.concat((sp_mat[pid], sp_mat.loc[pid])).dropna().nlargest(top)
 
-
 def get_cocart(sp_mat, df, pid, top=10):
     json = {}
     for idx, val in get_all_cocart(sp_mat, pid, top=top).iteritems():
