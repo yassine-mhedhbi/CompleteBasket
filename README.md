@@ -17,4 +17,4 @@ enter `Meat` in the search form for example will result in:
 
 >49	Vegetarian Grain Meat Sausages Italian - 4 CT
 
-In the first form, item desired, enter the product id and you will be redirect to search.
+In the first form, item desired, enter the product id and you will be redirect to your recommended items.
