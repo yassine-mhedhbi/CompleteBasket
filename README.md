@@ -17,6 +17,7 @@ enter `Meat` in the search form for example will result in:
 
 >49	Vegetarian Grain Meat Sausages Italian - 4 CT
 
-![Alt text](src/static/example.png?raw=true "Title")
-![Alt text](src/static/result.png?raw=true "Title")
+![Alt text](https://github.com/yassine-mhedhbi/CompleteBasket/blob/master/src/static/example.PNG?raw=true "Title")
+
+![Alt text](https://github.com/yassine-mhedhbi/CompleteBasket/blob/master/src/static/result.PNG?raw=true "Title")
 In the first form, item desired, enter the product id and you will be redirect to your recommended items.
