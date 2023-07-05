@@ -29,7 +29,7 @@ async def startup_event():
         project="yassine-mhe/CompleteBasket",
         api_token=os.getenv('NEPTUNE_API'), # your credentials
     )
-    #version["model/specs"].download(destination=os.getenv('ARTIFACT_PATH'))
+    version["model/specs"].download(destination=os.getenv('ARTIFACT_PATH'))
     api.basicModel = RecommendationSystem(os.getenv('ARTIFACT_PATH'))
 
     
