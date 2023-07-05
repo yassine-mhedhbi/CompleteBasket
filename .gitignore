@@ -5,3 +5,5 @@ instacart_2017_05_01
 .vscode/
 myenv
 .neptune
+__pycache__
+.env
