@@ -3,3 +3,5 @@ src/data
 instacart_2017_05_01
 .ipynb_checkpoints/
 .vscode/
+myenv
+.neptune
