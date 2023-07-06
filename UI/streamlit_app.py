@@ -33,7 +33,15 @@ def update_selection(options, selections, new=False):
 
 text = st.text_input("search products to choose from options below")
 st.session_state["text"] = text 
-response = [] if not text else requests.get(f"{os.getenv('API')}/search/{text}").json()
+
+response = []
+if text is not None or text.strip() != '':
+    response = requests.get(f"{os.getenv('API')}/search/{text}")
+    if response:
+        response = response.json()
+    else:
+        response = []
+
 
 with st.form("my_form"):
     options = [c["product_name"] for c in response]    
@@ -56,10 +64,11 @@ if len(flatten(st.session_state["selection"])) > 0:
     selected_records = flatten(st.session_state["selection"])
     st.write('You selected:', pd.DataFrame.from_records(selected_records)[["product_id", "product_name", "department"]])
     run = st.button('get recommendations')
+    st.divider()
     if run:
         with st.spinner('Getting recommendations ...'):
-            with st.echo():
-                recommandations = requests.get(f"{os.getenv('API')}/recommend/{algorithm}", params={"q":get_pids(selected_records)}).json()["products"]
+            recommandations = requests.get(f"{os.getenv('API')}/recommend/{algorithm}", params={"q":get_pids(selected_records)}).json()["products"]
             st.success("recommendations retrieved")
+            st.balloons()
             st.write(pd.DataFrame.from_records(recommandations))
     
