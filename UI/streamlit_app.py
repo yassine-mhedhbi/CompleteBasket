@@ -12,9 +12,6 @@ load_dotenv(dotenv_path=Path('.') / '.env')
 def flatten(lst):
     return [l for ls in lst for l in ls]
 
-
-        
-
 algorithm = st.sidebar.selectbox("algorithm", ["basic"])
 print(algorithm)
 
@@ -34,21 +31,18 @@ def update_selection(options, selections, new=False):
     else:
         st.session_state["selection"][-1] = get_records(options, selections)
 
-text = st.text_input("product search")
+text = st.text_input("search products to choose from options below")
 st.session_state["text"] = text 
 response = [] if not text else requests.get(f"{os.getenv('API')}/search/{text}").json()
 
-
-
 with st.form("my_form"):
-    st.write("Inside the form")
     options = [c["product_name"] for c in response]    
     selections = st.multiselect(
-        'What are your favorite colors',
+        'Choose products added to your basket',
         options
     )
     # Every form must have a submit button.
-    submitted = st.form_submit_button("Add/update")
+    submitted = st.form_submit_button("Add/update basket")
 
 
 
@@ -61,18 +55,11 @@ else:
 if len(flatten(st.session_state["selection"])) > 0:
     selected_records = flatten(st.session_state["selection"])
     st.write('You selected:', pd.DataFrame.from_records(selected_records)[["product_id", "product_name", "department"]])
-    run = st.button('give recommendations')
+    run = st.button('get recommendations')
     if run:
         with st.spinner('Getting recommendations ...'):
             with st.echo():
                 recommandations = requests.get(f"{os.getenv('API')}/recommend/{algorithm}", params={"q":get_pids(selected_records)}).json()["products"]
-            st.write(pd.DataFrame.from_records(recommandations))
             st.success("recommendations retrieved")
-
-
-
-
-
-    
-    
+            st.write(pd.DataFrame.from_records(recommandations))
     
