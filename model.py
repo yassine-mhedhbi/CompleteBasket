@@ -10,16 +10,15 @@ class RecommendationSystem:
         
     def __call__(self, products):
         return self.get_all(products)
+    
         
-        
-        
-    def get_all_cocart(self, pid, top=10):
+    def get_all_cocart(self, pid, top=5):
     # sp_mat[pid] column product count, row product count: sp_mat.loc[pid] (index is the product id) 
     # We are doing this because we have triangular matrix
         return pd.concat((self.params[pid], self.params.loc[pid])).dropna().nlargest(top)
 
 
-    def get_cocart(self, pid, top=10):
+    def get_cocart(self, pid, top=5):
         json = {}
         for idx, val in self.get_all_cocart(pid, top=top).items():
             if val > 0:
