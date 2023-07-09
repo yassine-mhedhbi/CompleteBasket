@@ -5,6 +5,8 @@ import requests
 import os
 from pathlib import Path
 from dotenv import load_dotenv 
+from st_aggrid import AgGrid, GridUpdateMode, ColumnsAutoSizeMode
+from st_aggrid.grid_options_builder import GridOptionsBuilder
 
 load_dotenv(dotenv_path=Path('.') / '.env')
 
@@ -62,13 +64,20 @@ else:
 
 if len(flatten(st.session_state["selection"])) > 0:
     selected_records = flatten(st.session_state["selection"])
-    st.write('You selected:', pd.DataFrame.from_records(selected_records)[["product_id", "product_name", "department"]])
-    run = st.button('get recommendations')
+    st.write('Products list added:', )
+    df = pd.DataFrame.from_records(selected_records)[["product_id", "product_name", "department"]]
+    gd = GridOptionsBuilder.from_dataframe(df)
+    gd.configure_selection(selection_mode="multiple", use_checkbox=True)
+    grid_options = gd.build()
+    height = 27 * len(selected_records) + 70
+    selection_table = AgGrid(df, height=height, gridOptions=grid_options, update_mode=GridUpdateMode.SELECTION_CHANGED, enable_enterprise_modules=False,  columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS)
     st.divider()
-    if run:
-        with st.spinner('Getting recommendations ...'):
-            recommandations = requests.get(f"{os.getenv('API')}/recommend/{algorithm}", params={"q":get_pids(selected_records)}).json()["products"]
-            st.success("recommendations retrieved")
-            st.balloons()
-            st.write(pd.DataFrame.from_records(recommandations))
+    if len(selection_table["selected_rows"]) > 0:
+        run = st.button('Confirm selections and get recommendations')
+    
+        if run:
+            with st.spinner('Getting recommendations ...'):
+                recommandations = requests.get(f"{os.getenv('API')}/recommend/{algorithm}", params={"q":get_pids(selection_table["selected_rows"])}).json()["products"]
+                st.success("recommendations retrieved")
+                st.write(pd.DataFrame.from_records(recommandations))
     
