@@ -1,6 +1,6 @@
 # CompleteBasket
 
-A [grocery Recomendation system](https://complete-basket.herokuapp.com/), it completes your order based on a item of your chosing.
+A [grocery Recomendation system](https://completebasket-ui.up.railway.app/), it completes your order based on a item of your chosing.
 
 ## Data 
 The Instacart Online Grocery Shopping Dataset 2017”, Accessed from https://www.instacart.com/datasets/grocery-shopping-2017 on 
